@@ -84,6 +84,15 @@ export function nativeTokenId(network: Network): string {
 }
 
 // ---- error tables (codes are append-only in the contracts) ----
+//
+// Each table mirrors one contract's `#[contracterror]` enum by hand: the key is
+// the on-chain code (the `#N` in `Error(Contract, #N)`) and the value is the
+// sentence shown to the user. `explainError` looks codes up here, and a code
+// missing from its table falls back to a generic "error N" message.
+//
+// When a contract adds a code, add its row here in the same change. Every
+// message must stay truthful: a charge can never exceed the subscriber's cap
+// or happen off schedule, and the copy must say so.
 
 export const SUBSCRIPTION_ERRORS: ErrorTable = {
   1: "The subscription contract is already set up.",
